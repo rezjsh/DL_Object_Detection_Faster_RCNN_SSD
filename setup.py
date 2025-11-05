@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 __version__ = "0.0.0"
 
-REPO_NAME = "DL_Object-Detection-License-Plate-Recognition"
+REPO_NAME = "DL_Object_Detection_Faster_RCNN_SSD"
 AUTHOR_USER_NAME = "rezjsh"
 SRC_REPO = "Object_Detection"
 # AUTHOR_EMAIL = "your.email@example.com" # Replace with your actual email
