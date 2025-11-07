@@ -12,7 +12,9 @@ class DataValidation:
     def validate_all_files_exist(self) -> bool:
         """
         Checks if the required split directories and files exist in the dataset folder.
+        Returns True if all required files/directories exist, else False.
         """
+        
         try:
             validation_status = True
             
