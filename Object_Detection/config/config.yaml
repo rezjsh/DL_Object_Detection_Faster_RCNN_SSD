@@ -2,9 +2,13 @@ data_ingestion:
   download_location: data/
 
 data_validation:
-  data_dir: data/License-Plate-Recognition-11/
+  data_dir: data/Pascal-VOC-2012-1/
   required_files:
     - train
-    - test
     - valid
   status_file: artifacts/data_validation/data_validation_status.txt
+
+dataset:
+  data_dir: data/Pascal-VOC-2012-1/
+  train_dir: train
+  valid_dir: valid
