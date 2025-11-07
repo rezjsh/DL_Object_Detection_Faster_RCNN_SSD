@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from src.entity.config_entity import DataIngestionConfig, DataValidationConfig
+from src.entity.config_entity import DataIngestionConfig, DataLoaderConfig, DataTransformationConfig, DataValidationConfig, DatasetConfig
 from src.constants.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from src.utils.helpers import create_directory, read_yaml_file
 from src.utils.logging_setup import logger
@@ -52,3 +52,41 @@ class ConfigurationManager(metaclass=SingletonMeta):
         )
         logger.info(f"Data validation config created: {data_validation_config}")
         return data_validation_config
+    
+    def get_dataset_config(self) -> DatasetConfig:
+        logger.info("Getting dataset config")
+        config = self.config.dataset
+        logger.info(f"Dataset config: {config}")
+        dataset_config = DatasetConfig(
+            data_dir=Path(config.data_dir),
+            train_dir=Path(config.train_dir),
+            valid_dir=Path(config.valid_dir)
+        )
+        logger.info(f"Dataset config created: {dataset_config}")
+        return dataset_config
+
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        logger.info("Getting data transformation config")
+        params = self.params.data_transformation
+        logger.info(f"Data transformation config: {params}")
+        data_transformation_config = DataTransformationConfig(
+            resize=params.resize,
+            image_size=params.image_size,
+            flip_prob=params.flip_prob
+        )
+        logger.info(f"Data transformation config created: {data_transformation_config}")
+        return data_transformation_config
+    
+    def get_data_loader_config(self) -> DataLoaderConfig:
+        logger.info("Getting data loader config")
+        params = self.params.data_loader
+        logger.info(f"Data loader config: {params}")
+        data_loader_config = DataLoaderConfig(
+            train_batch_size=params.train_batch_size,
+            valid_batch_size=params.valid_batch_size,
+            num_workers=params.num_workers,
+            pin_memory=params.pin_memory,
+            drop_last=params.drop_last
+        )
+        logger.info(f"Data loader config created: {data_loader_config}")
+        return data_loader_config
