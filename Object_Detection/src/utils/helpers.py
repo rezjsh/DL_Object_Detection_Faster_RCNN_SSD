@@ -1,9 +1,12 @@
 #src/utils/helpers.py
 import json
 import os
+from typing import List
 import zipfile
+from aiohttp_retry import Dict, Tuple
 from box import ConfigBox
 import requests
+import torch
 import yaml
 from src.utils.logging_setup import logger
 
@@ -86,3 +89,15 @@ def extract_zip(zip_path: str, extract_to: str) -> bool:
         except Exception as e:
             logger.error(f"Error extracting {zip_path}: {e}")
             return False
+
+
+
+    #Collation Function ---
+def collate_fn(batch: List[Tuple[torch.Tensor, Dict[str, torch.Tensor]]]) -> Tuple[Tuple[torch.Tensor, ...], Tuple[Dict[str, torch.Tensor], ...]]:
+    """
+    Necessary collation function for PyTorch object detection models.
+    It handles batches where inputs (images) and targets (dictionaries) are of varying sizes
+    due to different numbers of objects in each image.
+    """
+    # Unzips the list of (image, target) tuples into two separate tuples
+    return tuple(zip(*batch))
