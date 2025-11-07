@@ -1,11 +1,22 @@
 data_ingestion:
-  workspace: "roboflow-universe-projects"
-  project_name: "license-plate-recognition-rxg4e"
-  version: "11"
+  workspace: "jacob-solawetz"
+  project_name: "pascal-voc-2012"
+  version: "1"
   format: "voc"
 
 data_validation:
   required_files:
     - train
-    - test
     - valid
+
+data_transformation:
+  resize: true
+  image_size: [224, 224]
+  flip_prob: 0.5
+
+data_loader:
+  train_batch_size: 8
+  valid_batch_size: 8
+  num_workers: 4
+  pin_memory: true
+  drop_last: true
